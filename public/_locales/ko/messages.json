@@ -1,0 +1,206 @@
+{
+  "extensionName": {
+    "message": "Clipper Prep for Obsidian"
+  },
+  "extensionShortName": {
+    "message": "Clipper Prep"
+  },
+  "extensionDescription": {
+    "message": "Obsidian Web Clipper로 더 깔끔하게 캡처할 수 있도록 복잡한 페이지를 미리 정리합니다."
+  },
+  "popupDocumentTitle": {
+    "message": "Clipper Prep for Obsidian"
+  },
+  "optionsDocumentTitle": {
+    "message": "Clipper Prep for Obsidian 옵션"
+  },
+  "backgroundIdle": {
+    "message": "백그라운드 대기 중"
+  },
+  "pageIdle": {
+    "message": "페이지 대기 중"
+  },
+  "checkingBackground": {
+    "message": "백그라운드 확인 중"
+  },
+  "readingCurrentTab": {
+    "message": "현재 탭 읽는 중"
+  },
+  "refreshStatus": {
+    "message": "상태 새로고침"
+  },
+  "extensionStatus": {
+    "message": "확장 프로그램 상태"
+  },
+  "runtimeTitle": {
+    "message": "런타임"
+  },
+  "pageTitle": {
+    "message": "페이지"
+  },
+  "currentPageSnapshot": {
+    "message": "현재 페이지 스냅샷"
+  },
+  "currentPage": {
+    "message": "현재 페이지"
+  },
+  "snapshotTitle": {
+    "message": "제목"
+  },
+  "snapshotUrl": {
+    "message": "URL"
+  },
+  "snapshotSelection": {
+    "message": "선택 영역"
+  },
+  "noTitleYet": {
+    "message": "아직 제목이 없습니다"
+  },
+  "noPageUrlYet": {
+    "message": "아직 페이지 URL이 없습니다"
+  },
+  "noSelectedText": {
+    "message": "선택한 텍스트가 없습니다"
+  },
+  "siteMeta": {
+    "message": "사이트"
+  },
+  "modeMeta": {
+    "message": "모드"
+  },
+  "imagesMeta": {
+    "message": "이미지"
+  },
+  "enabled": {
+    "message": "사용"
+  },
+  "disabled": {
+    "message": "사용 안 함"
+  },
+  "enhancementTitle": {
+    "message": "향상 기능"
+  },
+  "reportMarkdownIssue": {
+    "message": "Markdown 문제 보고"
+  },
+  "additionalNotes": {
+    "message": "추가 메모"
+  },
+  "feedbackPlaceholder": {
+    "message": "누락되었거나 잘못된 Markdown에 대한 세부 정보를 입력하세요"
+  },
+  "openGitHubIssue": {
+    "message": "GitHub Issue 열기"
+  },
+  "currentPageUrlUnavailable": {
+    "message": "현재 페이지 URL을 사용할 수 없습니다."
+  },
+  "backgroundConnected": {
+    "message": "백그라운드 연결됨"
+  },
+  "backgroundUnavailable": {
+    "message": "백그라운드를 사용할 수 없음"
+  },
+  "noActiveTab": {
+    "message": "활성 탭이 없습니다"
+  },
+  "unsupportedPage": {
+    "message": "지원되지 않는 페이지"
+  },
+  "tabHasNoReadableUrl": {
+    "message": "이 탭에는 읽을 수 있는 URL이 없습니다"
+  },
+  "pageScriptUnavailable": {
+    "message": "페이지 스크립트를 사용할 수 없음"
+  },
+  "pageSnapshotReady": {
+    "message": "페이지 스냅샷 준비됨"
+  },
+  "siteEnhancerDisabled": {
+    "message": "$1 향상 기능이 꺼져 있습니다"
+  },
+  "siteEnhancerInactive": {
+    "message": "$1 향상 기능이 비활성 상태입니다"
+  },
+  "siteEnhancerActive": {
+    "message": "$1 향상 기능이 활성화되었습니다"
+  },
+  "siteEnhancerWaiting": {
+    "message": "$1 향상 기능이 콘텐츠를 기다리는 중입니다"
+  },
+  "siteEnhancerReady": {
+    "message": "$1 향상 기능 준비됨"
+  },
+  "imagesNormalized": {
+    "message": "$1/$2개 이미지 정리됨"
+  },
+  "wechatEnhancerActiveLabel": {
+    "message": "WeChat 향상 기능이 $1/$2개 이미지를 처리했습니다"
+  },
+  "noSiteEnhancerActive": {
+    "message": "활성화된 사이트 향상 기능이 없습니다"
+  },
+  "roundTripMs": {
+    "message": "$1 ms 왕복"
+  },
+  "unexpectedBackgroundResponse": {
+    "message": "예상치 못한 백그라운드 응답"
+  },
+  "unexpectedPageResponse": {
+    "message": "예상치 못한 페이지 응답"
+  },
+  "settingsTitle": {
+    "message": "설정"
+  },
+  "enhancedSitesTitle": {
+    "message": "향상 지원 사이트"
+  },
+  "globalProcessingTitle": {
+    "message": "전역 처리"
+  },
+  "siteWeChat": {
+    "message": "WeChat 공식 계정"
+  },
+  "siteByteTech": {
+    "message": "ByteTech 문서"
+  },
+  "siteByteTechShort": {
+    "message": "ByteTech"
+  },
+  "siteFeishu": {
+    "message": "Feishu 문서"
+  },
+  "processorMarkdownLinks": {
+    "message": "Markdown 링크"
+  },
+  "processorMarkdownLinksDescription": {
+    "message": "렌더링된 링크를 정리해 Obsidian이 [text](url) 형식으로 캡처할 수 있게 합니다."
+  },
+  "saveButton": {
+    "message": "저장"
+  },
+  "runtimeConnected": {
+    "message": "런타임 연결됨"
+  },
+  "runtimePending": {
+    "message": "런타임 대기 중"
+  },
+  "statusLoadingSettings": {
+    "message": "설정 불러오는 중"
+  },
+  "statusSettingsLoaded": {
+    "message": "설정을 불러왔습니다"
+  },
+  "statusSavingSettings": {
+    "message": "설정 저장 중"
+  },
+  "statusSettingsSaved": {
+    "message": "설정을 저장했습니다"
+  },
+  "unknown": {
+    "message": "알 수 없음"
+  },
+  "unknownError": {
+    "message": "알 수 없는 오류"
+  }
+}

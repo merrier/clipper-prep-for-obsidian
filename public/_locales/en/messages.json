@@ -1,0 +1,206 @@
+{
+  "extensionName": {
+    "message": "Clipper Prep for Obsidian"
+  },
+  "extensionShortName": {
+    "message": "Clipper Prep"
+  },
+  "extensionDescription": {
+    "message": "Prepare complex pages for cleaner Obsidian Web Clipper captures."
+  },
+  "popupDocumentTitle": {
+    "message": "Clipper Prep for Obsidian"
+  },
+  "optionsDocumentTitle": {
+    "message": "Clipper Prep for Obsidian Options"
+  },
+  "backgroundIdle": {
+    "message": "Background idle"
+  },
+  "pageIdle": {
+    "message": "Page idle"
+  },
+  "checkingBackground": {
+    "message": "Checking background"
+  },
+  "readingCurrentTab": {
+    "message": "Reading current tab"
+  },
+  "refreshStatus": {
+    "message": "Refresh status"
+  },
+  "extensionStatus": {
+    "message": "Extension status"
+  },
+  "runtimeTitle": {
+    "message": "Runtime"
+  },
+  "pageTitle": {
+    "message": "Page"
+  },
+  "currentPageSnapshot": {
+    "message": "Current page snapshot"
+  },
+  "currentPage": {
+    "message": "Current Page"
+  },
+  "snapshotTitle": {
+    "message": "Title"
+  },
+  "snapshotUrl": {
+    "message": "URL"
+  },
+  "snapshotSelection": {
+    "message": "Selection"
+  },
+  "noTitleYet": {
+    "message": "No title yet"
+  },
+  "noPageUrlYet": {
+    "message": "No page URL yet"
+  },
+  "noSelectedText": {
+    "message": "No selected text"
+  },
+  "siteMeta": {
+    "message": "Site"
+  },
+  "modeMeta": {
+    "message": "Mode"
+  },
+  "imagesMeta": {
+    "message": "Images"
+  },
+  "enabled": {
+    "message": "Enabled"
+  },
+  "disabled": {
+    "message": "Disabled"
+  },
+  "enhancementTitle": {
+    "message": "Enhancement"
+  },
+  "reportMarkdownIssue": {
+    "message": "Report Markdown Issue"
+  },
+  "additionalNotes": {
+    "message": "Additional notes"
+  },
+  "feedbackPlaceholder": {
+    "message": "Optional details about the missing or incorrect markdown"
+  },
+  "openGitHubIssue": {
+    "message": "Open GitHub Issue"
+  },
+  "currentPageUrlUnavailable": {
+    "message": "Current page URL unavailable."
+  },
+  "backgroundConnected": {
+    "message": "Background connected"
+  },
+  "backgroundUnavailable": {
+    "message": "Background unavailable"
+  },
+  "noActiveTab": {
+    "message": "No active tab"
+  },
+  "unsupportedPage": {
+    "message": "Unsupported page"
+  },
+  "tabHasNoReadableUrl": {
+    "message": "This tab has no readable URL"
+  },
+  "pageScriptUnavailable": {
+    "message": "Page script unavailable"
+  },
+  "pageSnapshotReady": {
+    "message": "Page snapshot ready"
+  },
+  "siteEnhancerDisabled": {
+    "message": "$1 enhancer disabled"
+  },
+  "siteEnhancerInactive": {
+    "message": "$1 enhancer inactive"
+  },
+  "siteEnhancerActive": {
+    "message": "$1 enhancer active"
+  },
+  "siteEnhancerWaiting": {
+    "message": "$1 enhancer waiting for content"
+  },
+  "siteEnhancerReady": {
+    "message": "$1 enhancer ready"
+  },
+  "imagesNormalized": {
+    "message": "$1/$2 images normalized"
+  },
+  "wechatEnhancerActiveLabel": {
+    "message": "WeChat enhancer active for $1/$2 images"
+  },
+  "noSiteEnhancerActive": {
+    "message": "No site enhancer active"
+  },
+  "roundTripMs": {
+    "message": "$1 ms round trip"
+  },
+  "unexpectedBackgroundResponse": {
+    "message": "Unexpected background response"
+  },
+  "unexpectedPageResponse": {
+    "message": "Unexpected page response"
+  },
+  "settingsTitle": {
+    "message": "Settings"
+  },
+  "enhancedSitesTitle": {
+    "message": "Enhanced Sites"
+  },
+  "globalProcessingTitle": {
+    "message": "Global Processing"
+  },
+  "siteWeChat": {
+    "message": "WeChat Official Accounts"
+  },
+  "siteByteTech": {
+    "message": "ByteTech Articles"
+  },
+  "siteByteTechShort": {
+    "message": "ByteTech"
+  },
+  "siteFeishu": {
+    "message": "Feishu Documents"
+  },
+  "processorMarkdownLinks": {
+    "message": "Markdown links"
+  },
+  "processorMarkdownLinksDescription": {
+    "message": "Normalize rendered links so Obsidian can clip them as [text](url)."
+  },
+  "saveButton": {
+    "message": "Save"
+  },
+  "runtimeConnected": {
+    "message": "Runtime connected"
+  },
+  "runtimePending": {
+    "message": "Runtime pending"
+  },
+  "statusLoadingSettings": {
+    "message": "Loading settings"
+  },
+  "statusSettingsLoaded": {
+    "message": "Settings loaded"
+  },
+  "statusSavingSettings": {
+    "message": "Saving settings"
+  },
+  "statusSettingsSaved": {
+    "message": "Settings saved"
+  },
+  "unknown": {
+    "message": "Unknown"
+  },
+  "unknownError": {
+    "message": "Unknown error"
+  }
+}

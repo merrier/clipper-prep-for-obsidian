@@ -1,0 +1,206 @@
+{
+  "extensionName": {
+    "message": "Clipper Prep for Obsidian"
+  },
+  "extensionShortName": {
+    "message": "Clipper Prep"
+  },
+  "extensionDescription": {
+    "message": "為 Obsidian Web Clipper 預先處理複雜網頁，讓剪藏結果更乾淨。"
+  },
+  "popupDocumentTitle": {
+    "message": "Clipper Prep for Obsidian"
+  },
+  "optionsDocumentTitle": {
+    "message": "Clipper Prep for Obsidian 選項"
+  },
+  "backgroundIdle": {
+    "message": "背景程式閒置中"
+  },
+  "pageIdle": {
+    "message": "頁面閒置中"
+  },
+  "checkingBackground": {
+    "message": "正在檢查背景程式"
+  },
+  "readingCurrentTab": {
+    "message": "正在讀取目前分頁"
+  },
+  "refreshStatus": {
+    "message": "重新整理狀態"
+  },
+  "extensionStatus": {
+    "message": "擴充功能狀態"
+  },
+  "runtimeTitle": {
+    "message": "執行階段"
+  },
+  "pageTitle": {
+    "message": "頁面"
+  },
+  "currentPageSnapshot": {
+    "message": "目前頁面快照"
+  },
+  "currentPage": {
+    "message": "目前頁面"
+  },
+  "snapshotTitle": {
+    "message": "標題"
+  },
+  "snapshotUrl": {
+    "message": "URL"
+  },
+  "snapshotSelection": {
+    "message": "選取內容"
+  },
+  "noTitleYet": {
+    "message": "尚無標題"
+  },
+  "noPageUrlYet": {
+    "message": "尚無頁面 URL"
+  },
+  "noSelectedText": {
+    "message": "尚未選取文字"
+  },
+  "siteMeta": {
+    "message": "網站"
+  },
+  "modeMeta": {
+    "message": "模式"
+  },
+  "imagesMeta": {
+    "message": "圖片"
+  },
+  "enabled": {
+    "message": "已啟用"
+  },
+  "disabled": {
+    "message": "已停用"
+  },
+  "enhancementTitle": {
+    "message": "增強"
+  },
+  "reportMarkdownIssue": {
+    "message": "回報 Markdown 問題"
+  },
+  "additionalNotes": {
+    "message": "補充說明"
+  },
+  "feedbackPlaceholder": {
+    "message": "可填寫缺漏或錯誤 Markdown 的細節"
+  },
+  "openGitHubIssue": {
+    "message": "開啟 GitHub Issue"
+  },
+  "currentPageUrlUnavailable": {
+    "message": "目前頁面 URL 無法使用。"
+  },
+  "backgroundConnected": {
+    "message": "背景程式已連線"
+  },
+  "backgroundUnavailable": {
+    "message": "背景程式無法使用"
+  },
+  "noActiveTab": {
+    "message": "沒有作用中的分頁"
+  },
+  "unsupportedPage": {
+    "message": "不支援的頁面"
+  },
+  "tabHasNoReadableUrl": {
+    "message": "此分頁沒有可讀取的 URL"
+  },
+  "pageScriptUnavailable": {
+    "message": "頁面腳本無法使用"
+  },
+  "pageSnapshotReady": {
+    "message": "頁面快照已就緒"
+  },
+  "siteEnhancerDisabled": {
+    "message": "$1 增強已停用"
+  },
+  "siteEnhancerInactive": {
+    "message": "$1 增強未啟動"
+  },
+  "siteEnhancerActive": {
+    "message": "$1 增強已啟動"
+  },
+  "siteEnhancerWaiting": {
+    "message": "$1 增強正在等待內容"
+  },
+  "siteEnhancerReady": {
+    "message": "$1 增強已就緒"
+  },
+  "imagesNormalized": {
+    "message": "已整理 $1/$2 張圖片"
+  },
+  "wechatEnhancerActiveLabel": {
+    "message": "微信公眾號增強已處理 $1/$2 張圖片"
+  },
+  "noSiteEnhancerActive": {
+    "message": "沒有啟動中的網站增強"
+  },
+  "roundTripMs": {
+    "message": "$1 ms 往返"
+  },
+  "unexpectedBackgroundResponse": {
+    "message": "背景程式回應異常"
+  },
+  "unexpectedPageResponse": {
+    "message": "頁面回應異常"
+  },
+  "settingsTitle": {
+    "message": "設定"
+  },
+  "enhancedSitesTitle": {
+    "message": "網站增強"
+  },
+  "globalProcessingTitle": {
+    "message": "全域處理"
+  },
+  "siteWeChat": {
+    "message": "微信公眾號"
+  },
+  "siteByteTech": {
+    "message": "ByteTech 文章"
+  },
+  "siteByteTechShort": {
+    "message": "ByteTech"
+  },
+  "siteFeishu": {
+    "message": "飛書文件"
+  },
+  "processorMarkdownLinks": {
+    "message": "Markdown 連結"
+  },
+  "processorMarkdownLinksDescription": {
+    "message": "整理已渲染的連結，讓 Obsidian 能將其剪藏為 [text](url)。"
+  },
+  "saveButton": {
+    "message": "儲存"
+  },
+  "runtimeConnected": {
+    "message": "執行階段已連線"
+  },
+  "runtimePending": {
+    "message": "等待執行階段"
+  },
+  "statusLoadingSettings": {
+    "message": "正在載入設定"
+  },
+  "statusSettingsLoaded": {
+    "message": "設定已載入"
+  },
+  "statusSavingSettings": {
+    "message": "正在儲存設定"
+  },
+  "statusSettingsSaved": {
+    "message": "設定已儲存"
+  },
+  "unknown": {
+    "message": "未知"
+  },
+  "unknownError": {
+    "message": "未知錯誤"
+  }
+}

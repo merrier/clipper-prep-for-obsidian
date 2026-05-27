@@ -1,0 +1,206 @@
+{
+  "extensionName": {
+    "message": "Clipper Prep for Obsidian"
+  },
+  "extensionShortName": {
+    "message": "Clipper Prep"
+  },
+  "extensionDescription": {
+    "message": "Obsidian Web Clipper でよりきれいに保存できるよう、複雑なページを事前処理します。"
+  },
+  "popupDocumentTitle": {
+    "message": "Clipper Prep for Obsidian"
+  },
+  "optionsDocumentTitle": {
+    "message": "Clipper Prep for Obsidian オプション"
+  },
+  "backgroundIdle": {
+    "message": "バックグラウンドは待機中"
+  },
+  "pageIdle": {
+    "message": "ページは待機中"
+  },
+  "checkingBackground": {
+    "message": "バックグラウンドを確認中"
+  },
+  "readingCurrentTab": {
+    "message": "現在のタブを読み取り中"
+  },
+  "refreshStatus": {
+    "message": "状態を更新"
+  },
+  "extensionStatus": {
+    "message": "拡張機能の状態"
+  },
+  "runtimeTitle": {
+    "message": "ランタイム"
+  },
+  "pageTitle": {
+    "message": "ページ"
+  },
+  "currentPageSnapshot": {
+    "message": "現在のページスナップショット"
+  },
+  "currentPage": {
+    "message": "現在のページ"
+  },
+  "snapshotTitle": {
+    "message": "タイトル"
+  },
+  "snapshotUrl": {
+    "message": "URL"
+  },
+  "snapshotSelection": {
+    "message": "選択範囲"
+  },
+  "noTitleYet": {
+    "message": "まだタイトルがありません"
+  },
+  "noPageUrlYet": {
+    "message": "まだページ URL がありません"
+  },
+  "noSelectedText": {
+    "message": "選択されたテキストはありません"
+  },
+  "siteMeta": {
+    "message": "サイト"
+  },
+  "modeMeta": {
+    "message": "モード"
+  },
+  "imagesMeta": {
+    "message": "画像"
+  },
+  "enabled": {
+    "message": "有効"
+  },
+  "disabled": {
+    "message": "無効"
+  },
+  "enhancementTitle": {
+    "message": "拡張処理"
+  },
+  "reportMarkdownIssue": {
+    "message": "Markdown の問題を報告"
+  },
+  "additionalNotes": {
+    "message": "補足メモ"
+  },
+  "feedbackPlaceholder": {
+    "message": "欠落または誤った Markdown の詳細を任意で入力"
+  },
+  "openGitHubIssue": {
+    "message": "GitHub Issue を開く"
+  },
+  "currentPageUrlUnavailable": {
+    "message": "現在のページ URL を取得できません。"
+  },
+  "backgroundConnected": {
+    "message": "バックグラウンドに接続済み"
+  },
+  "backgroundUnavailable": {
+    "message": "バックグラウンドを利用できません"
+  },
+  "noActiveTab": {
+    "message": "アクティブなタブがありません"
+  },
+  "unsupportedPage": {
+    "message": "対応していないページ"
+  },
+  "tabHasNoReadableUrl": {
+    "message": "このタブには読み取り可能な URL がありません"
+  },
+  "pageScriptUnavailable": {
+    "message": "ページスクリプトを利用できません"
+  },
+  "pageSnapshotReady": {
+    "message": "ページスナップショットの準備ができました"
+  },
+  "siteEnhancerDisabled": {
+    "message": "$1 の拡張処理は無効です"
+  },
+  "siteEnhancerInactive": {
+    "message": "$1 の拡張処理は未アクティブです"
+  },
+  "siteEnhancerActive": {
+    "message": "$1 の拡張処理は有効です"
+  },
+  "siteEnhancerWaiting": {
+    "message": "$1 の拡張処理はコンテンツを待機中です"
+  },
+  "siteEnhancerReady": {
+    "message": "$1 の拡張処理の準備ができました"
+  },
+  "imagesNormalized": {
+    "message": "$1/$2 件の画像を正規化しました"
+  },
+  "wechatEnhancerActiveLabel": {
+    "message": "WeChat 拡張処理で $1/$2 件の画像を処理しました"
+  },
+  "noSiteEnhancerActive": {
+    "message": "アクティブなサイト拡張処理はありません"
+  },
+  "roundTripMs": {
+    "message": "$1 ms の往復"
+  },
+  "unexpectedBackgroundResponse": {
+    "message": "予期しないバックグラウンド応答"
+  },
+  "unexpectedPageResponse": {
+    "message": "予期しないページ応答"
+  },
+  "settingsTitle": {
+    "message": "設定"
+  },
+  "enhancedSitesTitle": {
+    "message": "対応サイト"
+  },
+  "globalProcessingTitle": {
+    "message": "グローバル処理"
+  },
+  "siteWeChat": {
+    "message": "WeChat 公式アカウント"
+  },
+  "siteByteTech": {
+    "message": "ByteTech 記事"
+  },
+  "siteByteTechShort": {
+    "message": "ByteTech"
+  },
+  "siteFeishu": {
+    "message": "Feishu ドキュメント"
+  },
+  "processorMarkdownLinks": {
+    "message": "Markdown リンク"
+  },
+  "processorMarkdownLinksDescription": {
+    "message": "レンダリング済みリンクを正規化し、Obsidian が [text](url) として保存できるようにします。"
+  },
+  "saveButton": {
+    "message": "保存"
+  },
+  "runtimeConnected": {
+    "message": "ランタイムに接続済み"
+  },
+  "runtimePending": {
+    "message": "ランタイム待機中"
+  },
+  "statusLoadingSettings": {
+    "message": "設定を読み込み中"
+  },
+  "statusSettingsLoaded": {
+    "message": "設定を読み込みました"
+  },
+  "statusSavingSettings": {
+    "message": "設定を保存中"
+  },
+  "statusSettingsSaved": {
+    "message": "設定を保存しました"
+  },
+  "unknown": {
+    "message": "不明"
+  },
+  "unknownError": {
+    "message": "不明なエラー"
+  }
+}

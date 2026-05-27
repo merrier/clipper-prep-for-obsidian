@@ -1,0 +1,206 @@
+{
+  "extensionName": {
+    "message": "Clipper Prep for Obsidian"
+  },
+  "extensionShortName": {
+    "message": "Clipper Prep"
+  },
+  "extensionDescription": {
+    "message": "为 Obsidian Web Clipper 预处理复杂网页，让剪藏结果更干净。"
+  },
+  "popupDocumentTitle": {
+    "message": "Clipper Prep for Obsidian"
+  },
+  "optionsDocumentTitle": {
+    "message": "Clipper Prep for Obsidian 选项"
+  },
+  "backgroundIdle": {
+    "message": "后台空闲"
+  },
+  "pageIdle": {
+    "message": "页面空闲"
+  },
+  "checkingBackground": {
+    "message": "正在检查后台"
+  },
+  "readingCurrentTab": {
+    "message": "正在读取当前标签页"
+  },
+  "refreshStatus": {
+    "message": "刷新状态"
+  },
+  "extensionStatus": {
+    "message": "插件状态"
+  },
+  "runtimeTitle": {
+    "message": "运行时"
+  },
+  "pageTitle": {
+    "message": "页面"
+  },
+  "currentPageSnapshot": {
+    "message": "当前页面快照"
+  },
+  "currentPage": {
+    "message": "当前页面"
+  },
+  "snapshotTitle": {
+    "message": "标题"
+  },
+  "snapshotUrl": {
+    "message": "URL"
+  },
+  "snapshotSelection": {
+    "message": "选中文本"
+  },
+  "noTitleYet": {
+    "message": "暂无标题"
+  },
+  "noPageUrlYet": {
+    "message": "暂无页面 URL"
+  },
+  "noSelectedText": {
+    "message": "暂无选中文本"
+  },
+  "siteMeta": {
+    "message": "站点"
+  },
+  "modeMeta": {
+    "message": "模式"
+  },
+  "imagesMeta": {
+    "message": "图片"
+  },
+  "enabled": {
+    "message": "已启用"
+  },
+  "disabled": {
+    "message": "已关闭"
+  },
+  "enhancementTitle": {
+    "message": "增强"
+  },
+  "reportMarkdownIssue": {
+    "message": "反馈 Markdown 问题"
+  },
+  "additionalNotes": {
+    "message": "补充说明"
+  },
+  "feedbackPlaceholder": {
+    "message": "可填写缺失或错误 Markdown 的细节"
+  },
+  "openGitHubIssue": {
+    "message": "打开 GitHub Issue"
+  },
+  "currentPageUrlUnavailable": {
+    "message": "当前页面 URL 不可用。"
+  },
+  "backgroundConnected": {
+    "message": "后台已连接"
+  },
+  "backgroundUnavailable": {
+    "message": "后台不可用"
+  },
+  "noActiveTab": {
+    "message": "没有活动标签页"
+  },
+  "unsupportedPage": {
+    "message": "不支持的页面"
+  },
+  "tabHasNoReadableUrl": {
+    "message": "此标签页没有可读取的 URL"
+  },
+  "pageScriptUnavailable": {
+    "message": "页面脚本不可用"
+  },
+  "pageSnapshotReady": {
+    "message": "页面快照已就绪"
+  },
+  "siteEnhancerDisabled": {
+    "message": "$1 增强已关闭"
+  },
+  "siteEnhancerInactive": {
+    "message": "$1 增强未激活"
+  },
+  "siteEnhancerActive": {
+    "message": "$1 增强已激活"
+  },
+  "siteEnhancerWaiting": {
+    "message": "$1 增强正在等待内容"
+  },
+  "siteEnhancerReady": {
+    "message": "$1 增强已就绪"
+  },
+  "imagesNormalized": {
+    "message": "已规范 $1/$2 张图片"
+  },
+  "wechatEnhancerActiveLabel": {
+    "message": "微信公众号增强已处理 $1/$2 张图片"
+  },
+  "noSiteEnhancerActive": {
+    "message": "没有站点增强处于活动状态"
+  },
+  "roundTripMs": {
+    "message": "$1 ms 往返"
+  },
+  "unexpectedBackgroundResponse": {
+    "message": "后台响应异常"
+  },
+  "unexpectedPageResponse": {
+    "message": "页面响应异常"
+  },
+  "settingsTitle": {
+    "message": "设置"
+  },
+  "enhancedSitesTitle": {
+    "message": "站点增强"
+  },
+  "globalProcessingTitle": {
+    "message": "全局处理"
+  },
+  "siteWeChat": {
+    "message": "微信公众号"
+  },
+  "siteByteTech": {
+    "message": "ByteTech 文章"
+  },
+  "siteByteTechShort": {
+    "message": "ByteTech"
+  },
+  "siteFeishu": {
+    "message": "飞书文档"
+  },
+  "processorMarkdownLinks": {
+    "message": "Markdown 链接"
+  },
+  "processorMarkdownLinksDescription": {
+    "message": "规范渲染链接，让 Obsidian 能将其剪藏为 [text](url)。"
+  },
+  "saveButton": {
+    "message": "保存"
+  },
+  "runtimeConnected": {
+    "message": "运行时已连接"
+  },
+  "runtimePending": {
+    "message": "等待运行时"
+  },
+  "statusLoadingSettings": {
+    "message": "正在加载设置"
+  },
+  "statusSettingsLoaded": {
+    "message": "设置已加载"
+  },
+  "statusSavingSettings": {
+    "message": "正在保存设置"
+  },
+  "statusSettingsSaved": {
+    "message": "设置已保存"
+  },
+  "unknown": {
+    "message": "未知"
+  },
+  "unknownError": {
+    "message": "未知错误"
+  }
+}

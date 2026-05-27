@@ -62,7 +62,16 @@ let feishuDocumentFullCollectionUrl = '';
 let feishuDocumentFullCollectionComplete = false;
 
 export default defineContentScript({
-  matches: ['http://*/*', 'https://*/*'],
+  matches: [
+    'https://mp.weixin.qq.com/s*',
+    'https://bytetech.info/articles/*',
+    'https://feishu.cn/docx/*',
+    'https://*.feishu.cn/docx/*',
+    'https://larkoffice.com/docx/*',
+    'https://*.larkoffice.com/docx/*',
+    'https://larksuite.com/docx/*',
+    'https://*.larksuite.com/docx/*',
+  ],
   allFrames: true,
   runAt: 'document_start',
   main() {

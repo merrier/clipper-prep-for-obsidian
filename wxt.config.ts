@@ -8,10 +8,10 @@ export default defineConfig({
   manifestVersion: 3,
   modules: ['@wxt-dev/module-react'],
   manifest: {
-    name: 'Clipper Prep for Obsidian',
-    short_name: 'Clipper Prep',
-    description:
-      'Prepare complex pages for cleaner Obsidian Web Clipper captures.',
-    permissions: ['activeTab', 'storage'],
+    default_locale: 'en',
+    name: '__MSG_extensionName__',
+    short_name: '__MSG_extensionShortName__',
+    description: '__MSG_extensionDescription__',
+    permissions: ['activeTab', 'scripting', 'storage'],
   },
 });
