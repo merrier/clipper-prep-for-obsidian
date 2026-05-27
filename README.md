@@ -24,7 +24,7 @@ Many websites do not expose article content, images, and links as straightforwar
 | --- | --- |
 | WeChat Official Accounts | Normalizes image `src`, `data-src`, `loading`, `alt`, and related attributes in `mp.weixin.qq.com/s...` articles. |
 | ByteTech Articles | Reads the embedded Lark document frame in `bytetech.info/articles...` and mirrors semantic article HTML into the top page. |
-| Feishu / Lark Documents | Converts rendered document blocks on `feishu.cn/docx...`, `larkoffice.com/docx...`, and `larksuite.com/docx...` into an article mirror. |
+| Feishu / Lark Documents | Converts rendered document blocks from Feishu / Lark `docx` and `wiki` links into an article mirror, including `feishu.cn`, `larkoffice.com`, and `larksuite.com`. |
 | Global Markdown Links | Enabled by default; normalizes `data-href` links so clipped Markdown can keep `[text](url)`. |
 
 ## Communication Architecture

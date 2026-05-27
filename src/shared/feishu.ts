@@ -19,6 +19,31 @@ const SOURCE_URL_ATTR = 'data-obsidian-clipper-extended-source-url';
 const BLOCK_COUNT_ATTR = 'data-obsidian-clipper-extended-block-count';
 const SOURCE_CONTENT_ATTR = 'data-obsidian-clipper-extended-feishu-source-content';
 const ORIGINAL_ARIA_HIDDEN_ATTR = 'data-obsidian-clipper-extended-original-aria-hidden';
+const NON_CONTENT_IMAGE_TEXT = new Set(['附件不支持打印']);
+const AVATAR_IMAGE_SIZE_LIMIT = 96;
+const DECORATIVE_LARK_IMAGE_URL_PATTERN =
+  /(?:illustration_|empty_|positive_loading|loading_|\/empty|empty_positive|lark-static|module\/media\/illustration)/i;
+const IMAGE_URL_ATTRIBUTE_NAMES = new Set([
+  'src',
+  'currentSrc',
+  'href',
+  'xlink:href',
+  'data-src',
+  'data-original-src',
+  'data-origin-src',
+  'data-original',
+  'data-lazy-src',
+  'data-thumb',
+  'data-thumbnail',
+  'data-url',
+  'data-href',
+  'data-image-url',
+  'data-preview-url',
+  'data-download-url',
+  'data-file-url',
+  'data-origin-url',
+]);
+const IMAGE_URL_ATTRIBUTE_PATTERN = /(?:^|[-_:])(src|href|url|thumb|image|preview|download|file)(?:$|[-_:])/i;
 const NON_CONTENT_BLOCK_TYPES = new Set([
   'back_ref_list',
   'card',
@@ -65,10 +90,14 @@ const MIRROR_STYLE = [
 
 export interface FeishuDocumentBlock {
   id: string;
-  type: 'heading' | 'paragraph' | 'quote' | 'code';
-  text: string;
+  type: 'heading' | 'paragraph' | 'quote' | 'code' | 'image';
+  text?: string;
   level?: number;
   content?: MarkdownInlineContent[];
+  src?: string;
+  alt?: string;
+  width?: string;
+  height?: string;
 }
 
 export interface FeishuDocumentPayload {
@@ -94,7 +123,7 @@ export function isFeishuDocumentUrl(url: string): boolean {
   try {
     const parsedUrl = new URL(url);
 
-    return isFeishuDocumentHostname(parsedUrl.hostname) && parsedUrl.pathname.startsWith('/docx/');
+    return isFeishuDocumentHostname(parsedUrl.hostname) && isFeishuDocumentPath(parsedUrl.pathname);
   } catch {
     return false;
   }
@@ -267,7 +296,7 @@ export function renderFeishuDocumentPayload(doc: Document, payload: FeishuDocume
     mount.insertBefore(article, mount.firstChild);
   }
 
-  markSourceContent(doc, article);
+  markSourceContent(doc, article, payload.sourceUrl);
   populateMirrorArticle(doc, article, payload);
 
   return article;
@@ -425,15 +454,56 @@ function feishuBlockToArticleBlocks(
   options: Pick<FeishuCollectOptions, 'preserveMarkdownLinks'> = {},
 ): FeishuDocumentBlock[] {
   const blockType = block.getAttribute('data-block-type') ?? '';
+  const rawText = getCleanText(block);
+  const images = getMeaningfulImages(block, blockType);
   const shouldPreserveMarkdownLinks = options.preserveMarkdownLinks && !isCodeBlock(block, blockType);
-  const content = shouldPreserveMarkdownLinks ? collectMarkdownInlineContent(block) : [];
-  const text = shouldPreserveMarkdownLinks ? getMarkdownInlineContentText(content) : getCleanText(block);
+  const rawContent = shouldPreserveMarkdownLinks ? collectMarkdownInlineContent(block) : [];
+  const text = getContentText(shouldPreserveMarkdownLinks ? getMarkdownInlineContentText(rawContent) : rawText);
+  const content = getContentAwareInlineContent(rawContent, text);
 
-  if (!text || isNonContentBlock(block, blockType)) {
+  if (!text && images.length === 0) {
+    return [];
+  }
+
+  if (images.length === 0 && isNonContentBlock(block, blockType)) {
     return [];
   }
 
   const blockId = getBlockId(block, fallbackIndex);
+  const imageBlocks = images.map((image, index) => ({
+    id: `${blockId}:image:${index}:${image.src}`,
+    type: 'image' as const,
+    src: image.src,
+    alt: image.alt,
+    width: image.width,
+    height: image.height,
+  }));
+
+  if (images.length > 0) {
+    if (!text || isImageBlock(block, blockType)) {
+      return text
+        ? [
+            ...imageBlocks,
+            {
+              id: `${blockId}:caption`,
+              type: 'paragraph',
+              text,
+              ...(content.length > 0 ? { content } : {}),
+            },
+          ]
+        : imageBlocks;
+    }
+
+    return [
+      {
+        id: blockId,
+        type: 'paragraph',
+        text,
+        ...(content.length > 0 ? { content } : {}),
+      },
+      ...imageBlocks,
+    ];
+  }
 
   if (blockType.startsWith('heading') || /docx-heading\d-block/.test(block.className)) {
     return [
@@ -478,6 +548,27 @@ function feishuBlockToArticleBlocks(
   ];
 }
 
+function getContentAwareInlineContent(
+  content: MarkdownInlineContent[],
+  normalizedText: string,
+): MarkdownInlineContent[] {
+  if (content.length === 0) {
+    return [];
+  }
+
+  return getMarkdownInlineContentText(content) === normalizedText ? content : [{ type: 'text', text: normalizedText }];
+}
+
+function getContentText(text: string): string {
+  let contentText = text;
+
+  NON_CONTENT_IMAGE_TEXT.forEach((placeholder) => {
+    contentText = contentText.replaceAll(placeholder, ' ');
+  });
+
+  return cleanText(contentText);
+}
+
 function isNonContentBlock(block: HTMLElement, blockType: string): boolean {
   return (
     NON_CONTENT_BLOCK_TYPES.has(blockType) ||
@@ -490,12 +581,280 @@ function isNonContentBlock(block: HTMLElement, blockType: string): boolean {
   );
 }
 
+function isImageBlock(block: HTMLElement, blockType: string): boolean {
+  return (
+    blockType === 'image' ||
+    blockType === 'file' ||
+    block.className.includes('image') ||
+    block.className.includes('attachment') ||
+    block.className.includes('file')
+  );
+}
+
 function isCodeBlock(block: HTMLElement, blockType: string): boolean {
   return blockType === 'code' || block.className.includes('code');
 }
 
+function getMeaningfulImages(block: HTMLElement, blockType: string): FeishuDocumentBlock[] {
+  const isLikelyImageBlock = isImageBlock(block, blockType) || hasNonContentImageText(getCleanText(block));
+  const seenUrls = new Set<string>();
+
+  return getImageCandidates(block).filter((image) => {
+    const src = image.src ?? '';
+
+    if (
+      !isUsableImageUrl(src) ||
+      seenUrls.has(src) ||
+      isDecorativeLarkImageUrl(src) ||
+      isLikelyAvatarImage(image) ||
+      (!isLikelyImageBlock && !hasMeaningfulImageSize(image))
+    ) {
+      return false;
+    }
+
+    seenUrls.add(src);
+    return true;
+  });
+}
+
+function getImageCandidates(block: HTMLElement): FeishuDocumentBlock[] {
+  return getImageCandidatesFromElements([block, ...queryDeep<Element>(block, '*')]);
+}
+
+function getImageCandidatesFromElements(elements: Element[]): FeishuDocumentBlock[] {
+  const candidates: FeishuDocumentBlock[] = [];
+
+  elements.forEach((element) => {
+    getElementImageSources(element).forEach((src) => {
+      candidates.push({
+        id: '',
+        type: 'image',
+        src,
+        alt: getImageAlt(element),
+        width: getElementDimension(element, 'width'),
+        height: getElementDimension(element, 'height'),
+      });
+    });
+  });
+
+  return candidates;
+}
+
+function getElementImageSources(element: Element): string[] {
+  const sources: string[] = [];
+
+  if (element instanceof HTMLImageElement) {
+    sources.push(element.currentSrc);
+    sources.push(...getAttributeImageUrls(element, 'src'));
+    sources.push(...getAttributeImageUrls(element, 'srcset'));
+  }
+
+  if (element instanceof HTMLSourceElement) {
+    sources.push(...getAttributeImageUrls(element, 'srcset'));
+  }
+
+  Array.from(element.attributes).forEach((attribute) => {
+    if (shouldReadImageAttribute(attribute.name, attribute.value)) {
+      sources.push(...getAttributeImageUrls(element, attribute.name));
+    }
+  });
+
+  if (element instanceof HTMLElement) {
+    sources.push(...extractImageUrls(element.getAttribute('style') ?? ''));
+
+    Array.from(element.style).forEach((propertyName) => {
+      sources.push(...extractImageUrls(element.style.getPropertyValue(propertyName)));
+    });
+
+    sources.push(...extractCssImageUrls(element.style.backgroundImage));
+    sources.push(...extractCssImageUrls(element.style.background));
+  }
+
+  return sources.map(normalizeImageUrl).filter(isUsableImageUrl);
+}
+
+function shouldReadImageAttribute(name: string, value: string): boolean {
+  return IMAGE_URL_ATTRIBUTE_NAMES.has(name) || IMAGE_URL_ATTRIBUTE_PATTERN.test(name) || IMAGE_URL_ATTRIBUTE_PATTERN.test(value);
+}
+
+function getAttributeImageUrls(element: Element, attributeName: string): string[] {
+  const value = element.getAttribute(attributeName);
+
+  if (!value) {
+    return [];
+  }
+
+  if (attributeName.toLowerCase().includes('srcset')) {
+    return getSrcsetUrls(value);
+  }
+
+  return extractImageUrls(value);
+}
+
+function getSrcsetUrls(srcset: string): string[] {
+  return srcset
+    .split(',')
+    .map((item) => item.trim().split(/\s+/)[0] ?? '')
+    .filter(Boolean);
+}
+
+function extractImageUrls(value: string): string[] {
+  const decodedValue = decodeHtmlEntities(value);
+
+  return [
+    ...extractCssImageUrls(decodedValue),
+    ...getSrcsetUrls(decodedValue),
+    ...extractHttpImageUrls(decodedValue),
+    decodedValue,
+  ];
+}
+
+function extractHttpImageUrls(value: string): string[] {
+  return Array.from(value.matchAll(/(^|[^:\w+.-])(https?:\/\/[^\s"'<>\\)]+)/g)).map((match) => match[2] ?? '');
+}
+
+function extractCssImageUrls(backgroundImage: string): string[] {
+  return Array.from(backgroundImage.matchAll(/url\((['"]?)(.*?)\1\)/g)).map((match) => match[2] ?? '');
+}
+
+function isUsableImageUrl(src: string): boolean {
+  const normalizedSrc = normalizeImageUrl(src);
+
+  return Boolean(
+    normalizedSrc &&
+      /^https?:\/\//i.test(normalizedSrc) &&
+      !/^data:/i.test(normalizedSrc) &&
+      !/^blob:/i.test(normalizedSrc),
+  );
+}
+
+function normalizeImageUrl(src: string): string {
+  const normalizedSrc = src.trim().replace(/&amp;/g, '&');
+
+  return normalizedSrc.startsWith('//') ? `https:${normalizedSrc}` : normalizedSrc;
+}
+
+function decodeHtmlEntities(value: string): string {
+  return value
+    .replace(/&quot;/g, '"')
+    .replace(/&#34;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, '&');
+}
+
+function hasNonContentImageText(text: string): boolean {
+  return Array.from(NON_CONTENT_IMAGE_TEXT).some((placeholder) => text.includes(placeholder));
+}
+
+function getImageAlt(element: Element): string {
+  return element.getAttribute('alt')?.trim() || element.getAttribute('aria-label')?.trim() || element.getAttribute('title')?.trim() || '';
+}
+
+function getElementDimension(element: Element, dimension: 'width' | 'height'): string {
+  const attributeValue = element.getAttribute(dimension) || element.getAttribute(`data-${dimension}`);
+
+  if (attributeValue) {
+    return attributeValue;
+  }
+
+  if (element instanceof HTMLElement) {
+    const inlineValue = element.style[dimension];
+
+    if (inlineValue) {
+      return inlineValue;
+    }
+  }
+
+  return '';
+}
+
+function hasMeaningfulImageSize(image: FeishuDocumentBlock): boolean {
+  const urlSize = getImageSizeFromUrl(image.src ?? '');
+  const width = getNumericDimension(image.width) ?? urlSize?.width ?? 0;
+  const height = getNumericDimension(image.height) ?? urlSize?.height ?? 0;
+
+  return Math.max(width, height) > AVATAR_IMAGE_SIZE_LIMIT;
+}
+
+function isLikelyAvatarImage(image: FeishuDocumentBlock): boolean {
+  const url = image.src ?? '';
+  const imageSize = getImageSizeFromUrl(url);
+  const largestUrlSide = Math.max(imageSize?.width ?? 0, imageSize?.height ?? 0);
+
+  if (/cut_type=default-face|sticker_format=|avatar|user_avatar/i.test(url)) {
+    return true;
+  }
+
+  if (largestUrlSide > 0 && largestUrlSide <= AVATAR_IMAGE_SIZE_LIMIT) {
+    return true;
+  }
+
+  const largestElementSide = Math.max(getNumericDimension(image.width) ?? 0, getNumericDimension(image.height) ?? 0);
+
+  return largestElementSide > 0 && largestElementSide <= AVATAR_IMAGE_SIZE_LIMIT;
+}
+
+function isDecorativeLarkImageUrl(src: string): boolean {
+  return DECORATIVE_LARK_IMAGE_URL_PATTERN.test(normalizeImageUrl(src));
+}
+
+function getNumericDimension(value: string | undefined): number | null {
+  const match = value?.match(/\d+(?:\.\d+)?/);
+  const numberValue = Number.parseFloat(match?.[0] ?? '');
+
+  return Number.isFinite(numberValue) ? numberValue : null;
+}
+
+function getImageSizeFromUrl(src: string): { width: number; height: number } | null {
+  try {
+    const parsedUrl = new URL(src);
+    const imageSize = parsedUrl.searchParams.get('image_size') ?? '';
+    const match = imageSize.match(/^(\d+)x(\d+)$/);
+
+    if (match) {
+      return {
+        width: Number.parseInt(match[1] ?? '0', 10),
+        height: Number.parseInt(match[2] ?? '0', 10),
+      };
+    }
+
+    const width = Number.parseInt(parsedUrl.searchParams.get('width') ?? '', 10);
+    const height = Number.parseInt(parsedUrl.searchParams.get('height') ?? '', 10);
+
+    return Number.isFinite(width) && width > 0 && Number.isFinite(height) && height > 0 ? { width, height } : null;
+  } catch {
+    return null;
+  }
+}
+
 function createArticleBlockElement(doc: Document, block: FeishuDocumentBlock): HTMLElement | null {
-  const text = block.text.trim();
+  if (block.type === 'image') {
+    if (!block.src) {
+      return null;
+    }
+
+    const paragraph = doc.createElement('p');
+    const image = doc.createElement('img');
+
+    image.src = block.src;
+    image.setAttribute('data-src', block.src);
+    image.setAttribute('loading', 'eager');
+    image.alt = block.alt ?? '';
+
+    if (block.width) {
+      image.setAttribute('width', block.width);
+    }
+
+    if (block.height) {
+      image.setAttribute('height', block.height);
+    }
+
+    paragraph.appendChild(image);
+    return paragraph;
+  }
+
+  const text = block.text?.trim() ?? '';
 
   if (!text) {
     return null;
@@ -547,8 +906,8 @@ function findMirrorArticle(doc: Document): HTMLElement | null {
   return doc.querySelector<HTMLElement>(`#${MIRROR_ID}`);
 }
 
-function markSourceContent(doc: Document, article: HTMLElement): void {
-  getFeishuSourceContentRoots(doc)
+function markSourceContent(doc: Document, article: HTMLElement, sourceUrl: string): void {
+  getFeishuSourceContentRoots(doc, sourceUrl)
     .filter((root) => root !== article && !article.contains(root) && !root.contains(article))
     .forEach((root) => {
       if (!root.hasAttribute(ORIGINAL_ARIA_HIDDEN_ATTR)) {
@@ -575,12 +934,38 @@ function restoreSourceContentAttributes(doc: Document): void {
   });
 }
 
-function getFeishuSourceContentRoots(doc: Document): HTMLElement[] {
-  const roots = getRenderedFeishuBlockElements(doc)
-    .map((block) => block.closest<HTMLElement>('.bear-web-x-container, .render-unit-wrapper, .root-render-unit-container'))
-    .filter((root): root is HTMLElement => Boolean(root));
+function getFeishuSourceContentRoots(doc: Document, sourceUrl: string): HTMLElement[] {
+  const renderedBlocks = getRenderedFeishuBlockElements(doc);
+  const roots = renderedBlocks
+    .flatMap((block) => {
+      const renderRoot = block.closest<HTMLElement>(
+        '.bear-web-x-container, .render-unit-wrapper, .root-render-unit-container',
+      );
+
+      if (!isFeishuWikiUrl(sourceUrl)) {
+        return renderRoot ? [renderRoot] : [];
+      }
+
+      return [renderRoot, getBodyChildRoot(block, doc)].filter((root): root is HTMLElement => Boolean(root));
+    });
 
   return Array.from(new Set(roots));
+}
+
+function getBodyChildRoot(element: HTMLElement, doc: Document): HTMLElement | null {
+  let current: HTMLElement | null = getShadowHost(element) ?? element;
+
+  while (current?.parentElement && current.parentElement !== doc.body) {
+    current = current.parentElement;
+  }
+
+  return current?.parentElement === doc.body ? current : null;
+}
+
+function getShadowHost(element: HTMLElement): HTMLElement | null {
+  const root = element.getRootNode();
+
+  return root instanceof ShadowRoot && root.host instanceof HTMLElement ? root.host : null;
 }
 
 function findFeishuScrollContainer(doc: Document): HTMLElement | null {
@@ -733,6 +1118,18 @@ function isFeishuDocumentHostname(hostname: string): boolean {
     hostname === LARKSUITE_HOSTNAME ||
     hostname.endsWith(LARKSUITE_HOSTNAME_SUFFIX)
   );
+}
+
+function isFeishuDocumentPath(pathname: string): boolean {
+  return pathname.startsWith('/docx/') || pathname.startsWith('/wiki/');
+}
+
+function isFeishuWikiUrl(url: string): boolean {
+  try {
+    return new URL(url).pathname.startsWith('/wiki/');
+  } catch {
+    return false;
+  }
 }
 
 function queryDeep<T extends Element>(root: ParentNode, selector: string): T[] {

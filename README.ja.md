@@ -24,7 +24,7 @@ Clipper Prep for Obsidian は、公式 [Obsidian Web Clipper](https://obsidian.m
 | --- | --- |
 | WeChat Official Accounts | `mp.weixin.qq.com/s...` の記事画像に対して、`src`、`data-src`、`loading`、`alt` などを正規化します。 |
 | ByteTech Articles | `bytetech.info/articles...` に埋め込まれた Lark ドキュメント frame を読み取り、トップページにセマンティックな記事 HTML をミラーします。 |
-| Feishu / Lark Documents | `feishu.cn/docx...`、`larkoffice.com/docx...`、`larksuite.com/docx...` のレンダリング済みドキュメントブロックを記事ミラーに変換します。 |
+| Feishu / Lark Documents | `feishu.cn`、`larkoffice.com`、`larksuite.com` の Feishu / Lark `docx` と `wiki` リンクにあるレンダリング済みドキュメントブロックを記事ミラーに変換します。 |
 | Global Markdown Links | デフォルトで有効です。`data-href` リンクを正規化し、クリップ結果に `[text](url)` を残しやすくします。 |
 
 ## 通信アーキテクチャ

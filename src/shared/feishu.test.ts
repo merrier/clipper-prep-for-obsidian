@@ -12,6 +12,9 @@ import {
 } from './feishu';
 
 const FEISHU_URL = 'https://bytedance.sg.larkoffice.com/docx/TYVWd5wTmoGc3HxbAnKlEy2ug3g';
+const FEISHU_WIKI_URL = 'https://bytedance.larkoffice.com/wiki/VDliw49rhieuq8kMQ9FcOYIrnNb';
+const FEISHU_IMAGE_URL =
+  'https://internal-api-drive-stream.larkoffice.com/space/api/box/stream/download/v2/cover/X2EobXMaJoKg2Fx72gmcdfAfnzg/?fallback_source=1&height=1280&mount_node_token=Mktdd1k3Mo4iTvxNkG5crBA7nvc&mount_point=docx_image&policy=equal&width=1280';
 
 describe('Feishu document enhancement', () => {
   beforeEach(() => {
@@ -23,8 +26,11 @@ describe('Feishu document enhancement', () => {
     expect(isFeishuDocumentUrl('https://example.feishu.cn/docx/example')).toBe(true);
     expect(isFeishuDocumentUrl('https://bytedance.larkoffice.com/docx/example')).toBe(true);
     expect(isFeishuDocumentUrl('https://bytedance.larksuite.com/docx/example')).toBe(true);
-    expect(isFeishuDocumentUrl('https://bytedance.larkoffice.com/wiki/example')).toBe(false);
+    expect(isFeishuDocumentUrl('https://bytedance.larkoffice.com/wiki/example')).toBe(true);
+    expect(isFeishuDocumentUrl(FEISHU_WIKI_URL)).toBe(true);
+    expect(isFeishuDocumentUrl('https://bytedance.feishu.cn/wiki/example?from=from_copylink')).toBe(true);
     expect(isFeishuDocumentUrl('https://example.com/docx/example')).toBe(false);
+    expect(isFeishuDocumentUrl('https://bytedance.larkoffice.com/base/example')).toBe(false);
   });
 
   it('converts rendered docx blocks into semantic document blocks', () => {
@@ -134,6 +140,124 @@ describe('Feishu document enhancement', () => {
     expect(article.querySelector('p a')?.getAttribute('href')).toBe(link);
   });
 
+  it('keeps rendered Feishu document images in mirrored article content', () => {
+    const doc = createDocument(`
+      <div class="render-unit-wrapper">
+        <div class="block docx-image-block" data-block-type="image" data-record-id="image-1">
+          <img src="${FEISHU_IMAGE_URL}" alt="流程截图" width="1280" height="720" />
+        </div>
+      </div>
+    `);
+
+    const blocks = collectVisibleFeishuBlocks(doc);
+    const article = renderFeishuDocumentPayload(doc, {
+      title: 'Images',
+      sourceUrl: FEISHU_URL,
+      blocks,
+    });
+    const image = article.querySelector('img');
+
+    expect(blocks).toEqual([
+      {
+        id: `image-1:image:0:${FEISHU_IMAGE_URL}`,
+        type: 'image',
+        src: FEISHU_IMAGE_URL,
+        alt: '流程截图',
+        width: '1280',
+        height: '720',
+      },
+    ]);
+    expect(image?.getAttribute('src')).toBe(FEISHU_IMAGE_URL);
+    expect(image?.getAttribute('data-src')).toBe(FEISHU_IMAGE_URL);
+    expect(image?.getAttribute('loading')).toBe('eager');
+    expect(image?.getAttribute('alt')).toBe('流程截图');
+  });
+
+  it('keeps Feishu image URLs whose size is only exposed in query params', () => {
+    const doc = createDocument(`
+      <div class="render-unit-wrapper">
+        <div class="block docx-text-block" data-block-type="text" data-record-id="image-in-text">
+          <span><img src="${FEISHU_IMAGE_URL}" alt="架构图" /></span>
+        </div>
+      </div>
+    `);
+
+    expect(collectVisibleFeishuBlocks(doc)).toEqual([
+      {
+        id: `image-in-text:image:0:${FEISHU_IMAGE_URL}`,
+        type: 'image',
+        src: FEISHU_IMAGE_URL,
+        alt: '架构图',
+        width: '',
+        height: '',
+      },
+    ]);
+  });
+
+  it('uses data-src when Feishu renders a placeholder img src', () => {
+    const doc = createDocument(`
+      <div class="render-unit-wrapper">
+        <div class="block docx-image-block" data-block-type="image" data-record-id="image-2">
+          <img src="data:image/gif;base64,placeholder" data-src="https://example.com/real-feishu-image.png" alt="Real image" />
+          <span>附件不支持打印</span>
+        </div>
+      </div>
+    `);
+
+    expect(collectVisibleFeishuBlocks(doc)).toEqual([
+      {
+        id: 'image-2:image:0:https://example.com/real-feishu-image.png',
+        type: 'image',
+        src: 'https://example.com/real-feishu-image.png',
+        alt: 'Real image',
+        width: '',
+        height: '',
+      },
+    ]);
+  });
+
+  it('filters blob image sources and keeps the durable Feishu image URL', () => {
+    const doc = createDocument(`
+      <div class="render-unit-wrapper">
+        <div class="block docx-image-block" data-block-type="image" data-record-id="image-3">
+          <img src="blob:https://bytedance.larkoffice.com/transient-image" data-src="${FEISHU_IMAGE_URL}" alt="流程图" />
+        </div>
+      </div>
+    `);
+
+    const blocks = collectVisibleFeishuBlocks(doc);
+    const article = renderFeishuDocumentPayload(doc, {
+      title: 'Blob images',
+      sourceUrl: FEISHU_URL,
+      blocks,
+    });
+
+    expect(blocks).toEqual([
+      {
+        id: `image-3:image:0:${FEISHU_IMAGE_URL}`,
+        type: 'image',
+        src: FEISHU_IMAGE_URL,
+        alt: '流程图',
+        width: '',
+        height: '',
+      },
+    ]);
+    expect(article.querySelector('img')?.getAttribute('src')).toBe(FEISHU_IMAGE_URL);
+    expect(article.outerHTML).not.toContain('blob:');
+  });
+
+  it('drops blob-only Feishu images because they cannot survive Markdown clipping', () => {
+    const doc = createDocument(`
+      <div class="render-unit-wrapper">
+        <div class="block docx-image-block" data-block-type="image" data-record-id="blob-only">
+          <img src="blob:https://bytedance.larkoffice.com/transient-image" alt="临时图片" />
+        </div>
+      </div>
+    `);
+
+    expect(collectVisibleFeishuBlocks(doc)).toEqual([]);
+  });
+
   it('reads rendered blocks inside open shadow roots', () => {
     const doc = createDocument('<main><lark-doc></lark-doc></main>');
     const host = doc.querySelector('lark-doc')!;
@@ -237,6 +361,64 @@ describe('Feishu document enhancement', () => {
     expect(doc.querySelector('#obsidian-clipper-extended-feishu-document')).toBeNull();
     expect(sourceRoot?.hasAttribute('aria-hidden')).toBe(false);
     expect(sourceRoot?.hasAttribute('data-obsidian-clipper-extended-feishu-source-content')).toBe(false);
+  });
+
+  it('hides the wiki app shell behind the mirrored article', async () => {
+    const doc = createDocument(
+      `
+        <div id="wiki-app">
+          <header>Navigation should be hidden from clipping</header>
+          <main>
+            <div class="wiki-page-title">Wiki title chrome</div>
+            <div data-block-type="heading2" data-record-id="h2">正文标题</div>
+            <div data-block-type="text" data-record-id="p1">正文段落</div>
+          </main>
+          <footer>Footer should be hidden from clipping</footer>
+        </div>
+      `,
+      'Wiki Document - Docs',
+    );
+    const appRoot = doc.querySelector<HTMLElement>('#wiki-app')!;
+
+    await enhanceFeishuDocument(window, doc, FEISHU_WIKI_URL, {
+      maxScrollSteps: 0,
+      waitMs: 0,
+    });
+
+    const article = doc.querySelector('#obsidian-clipper-extended-feishu-document');
+
+    expect(article?.querySelector('h2')?.textContent).toBe('正文标题');
+    expect(article?.querySelector('p')?.textContent).toBe('正文段落');
+    expect(appRoot.getAttribute('aria-hidden')).toBe('true');
+    expect(appRoot.getAttribute('data-obsidian-clipper-extended-feishu-source-content')).toBe('true');
+
+    restoreFeishuEnhancement(doc);
+
+    expect(appRoot.hasAttribute('aria-hidden')).toBe(false);
+    expect(appRoot.hasAttribute('data-obsidian-clipper-extended-feishu-source-content')).toBe(false);
+  });
+
+  it('keeps docx source hiding scoped to the render root', async () => {
+    const doc = createDocument(`
+      <div id="docx-app">
+        <nav>Navigation remains outside the docx source root</nav>
+        <div class="render-unit-wrapper">
+          <div class="block docx-text-block" data-block-type="text" data-record-id="p1">
+            Docx paragraph
+          </div>
+        </div>
+      </div>
+    `);
+    const appRoot = doc.querySelector<HTMLElement>('#docx-app')!;
+    const sourceRoot = doc.querySelector<HTMLElement>('.render-unit-wrapper')!;
+
+    await enhanceFeishuDocument(window, doc, FEISHU_URL, {
+      maxScrollSteps: 0,
+      waitMs: 0,
+    });
+
+    expect(sourceRoot.getAttribute('aria-hidden')).toBe('true');
+    expect(appRoot.hasAttribute('aria-hidden')).toBe(false);
   });
 
   it('renders payloads without depending on ByteTech DOM markers', () => {

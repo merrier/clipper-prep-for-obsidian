@@ -157,7 +157,7 @@ export function OptionsApp() {
             />
             <span>
               <strong>{t('siteFeishu')}</strong>
-              <small>feishu.cn/docx..., larkoffice.com/docx...</small>
+              <small>feishu.cn/docx|wiki..., larkoffice.com/docx|wiki...</small>
             </span>
           </label>
         </section>
