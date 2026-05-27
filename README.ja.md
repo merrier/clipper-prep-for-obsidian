@@ -1,16 +1,16 @@
-[![Obsidian Clipper Extended](store-assets/promo-marquee-1400x560.png)](store-assets/promo-marquee-1400x560.png)
+[![Clipper Prep for Obsidian](store-assets/promo-marquee-1400x560.png)](store-assets/promo-marquee-1400x560.png)
 
-# Obsidian Clipper Extended
+# Clipper Prep for Obsidian
 
 [中文](README.md) · [English](README.en.md) · [日本語](README.ja.md)
 
-Obsidian Clipper Extended は、公式 [Obsidian Web Clipper](https://obsidian.md/clipper) で保存する前に複雑な Web ページを整える Chromium MV3 拡張機能です。Obsidian に入る最終的な Markdown を、より完全で読みやすいものにします。
+Clipper Prep for Obsidian は、公式 [Obsidian Web Clipper](https://obsidian.md/clipper) で保存する前に複雑な Web ページを整える Chromium MV3 拡張機能です。Obsidian に入る最終的な Markdown を、より完全で読みやすいものにします。
 
 このプロジェクトは公式 Obsidian Web Clipper とは独立しています。公式クリッパーを置き換えるものではなく、公式クリッパーが Markdown に変換しやすい内容を読み取れるようにページ DOM を改善します。
 
 ## 概要
 
-多くの Web サイトでは、記事本文、画像、リンクが単純な HTML として公開されていません。遅延読み込み、仮想スクロール、shadow DOM、埋め込み frame、独自のレンダリングノードなどが使われることがあります。Obsidian Clipper Extended は、クリップ前にそれらの構造を整えます。
+多くの Web サイトでは、記事本文、画像、リンクが単純な HTML として公開されていません。遅延読み込み、仮想スクロール、shadow DOM、埋め込み frame、独自のレンダリングノードなどが使われることがあります。Clipper Prep for Obsidian は、クリップ前にそれらの構造を整えます。
 
 - 記事画像の URL と属性を正規化します。
 - レンダリング済みドキュメントブロックをセマンティックな記事 HTML にミラーします。
@@ -34,7 +34,7 @@ flowchart LR
   User["User"] --> OfficialClipper["Official Obsidian Web Clipper"]
   OfficialClipper --> PreparedDOM["Prepared page DOM"]
 
-  subgraph Extension["Obsidian Clipper Extended"]
+  subgraph Extension["Clipper Prep for Obsidian"]
     Popup["Popup UI<br/>React"] -->|"runtime:ping"| Background["Background<br/>MV3 service worker"]
     Popup -->|"tabs.sendMessage<br/>page:snapshot"| PageContent["Page content script<br/>isolated world, all frames"]
     Options["Options UI<br/>React"] -->|"runtime:ping"| Background

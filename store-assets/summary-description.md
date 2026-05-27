@@ -2,11 +2,11 @@
 
 ## English Summary
 
-Prepare pages for cleaner Obsidian Web Clipper captures across WeChat, ByteTech, Feishu/Lark, and rendered links.
+Prepare complex pages for cleaner Obsidian Web Clipper captures.
 
 ## Description
 
-Obsidian Clipper Extended improves pages before you capture them with Obsidian Web Clipper. It does not replace the official clipper. Instead, it prepares tricky pages so the final Markdown is cleaner, more complete, and easier to use in your vault.
+Clipper Prep for Obsidian improves pages before you capture them with Obsidian Web Clipper. It does not replace the official clipper. Instead, it prepares tricky pages so the final Markdown is cleaner, more complete, and easier to use in your vault.
 
 Use it when web pages render useful content in ways that normal clippers often miss:
 
@@ -25,7 +25,7 @@ Why install it:
 
 Best workflow:
 
-1. Install Obsidian Clipper Extended.
+1. Install Clipper Prep for Obsidian.
 2. Enable the sites you care about in Options.
 3. Open the target page.
 4. Use the official Obsidian Web Clipper as usual.

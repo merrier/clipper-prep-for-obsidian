@@ -1,16 +1,16 @@
-[![Obsidian Clipper Extended](store-assets/promo-marquee-1400x560.png)](store-assets/promo-marquee-1400x560.png)
+[![Clipper Prep for Obsidian](store-assets/promo-marquee-1400x560.png)](store-assets/promo-marquee-1400x560.png)
 
-# Obsidian Clipper Extended
+# Clipper Prep for Obsidian
 
 [中文](README.md) · [English](README.en.md) · [日本語](README.ja.md)
 
-Obsidian Clipper Extended 是一个 Chromium MV3 浏览器插件，用于在官方 [Obsidian Web Clipper](https://obsidian.md/clipper) 剪藏前预处理复杂网页，让最终进入 Obsidian 的 Markdown 更完整、更干净。
+Clipper Prep for Obsidian 是一个 Chromium MV3 浏览器插件，用于在官方 [Obsidian Web Clipper](https://obsidian.md/clipper) 剪藏前预处理复杂网页，让最终进入 Obsidian 的 Markdown 更完整、更干净。
 
 本项目独立于官方 Obsidian Web Clipper。它不替代官方剪藏器，而是改善页面 DOM，让官方剪藏器可以读取更适合转换为 Markdown 的内容。
 
 ## 这是什么
 
-很多网页的正文、图片和链接并不是直接以普通 HTML 呈现，而是通过懒加载、虚拟滚动、shadow DOM、内嵌 frame 或自定义渲染节点生成。Obsidian Clipper Extended 会在剪藏前处理这些页面结构：
+很多网页的正文、图片和链接并不是直接以普通 HTML 呈现，而是通过懒加载、虚拟滚动、shadow DOM、内嵌 frame 或自定义渲染节点生成。Clipper Prep for Obsidian 会在剪藏前处理这些页面结构：
 
 - 规范文章图片地址和属性。
 - 将渲染型文档块镜像为语义化文章 HTML。
@@ -34,7 +34,7 @@ flowchart LR
   User["User"] --> OfficialClipper["Official Obsidian Web Clipper"]
   OfficialClipper --> PreparedDOM["Prepared page DOM"]
 
-  subgraph Extension["Obsidian Clipper Extended"]
+  subgraph Extension["Clipper Prep for Obsidian"]
     Popup["Popup UI<br/>React"] -->|"runtime:ping"| Background["Background<br/>MV3 service worker"]
     Popup -->|"tabs.sendMessage<br/>page:snapshot"| PageContent["Page content script<br/>isolated world, all frames"]
     Options["Options UI<br/>React"] -->|"runtime:ping"| Background

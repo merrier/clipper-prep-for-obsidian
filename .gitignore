@@ -5,3 +5,10 @@ dist/
 coverage/
 .DS_Store
 *.log
+.env
+.env.*
+!.env.example
+store-assets/videos/.voice-cache.json
+store-assets/videos/audio/
+store-assets/videos/voice-samples/
+store-assets/videos/*-silent.mp4

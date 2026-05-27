@@ -8,10 +8,10 @@ export default defineConfig({
   manifestVersion: 3,
   modules: ['@wxt-dev/module-react'],
   manifest: {
-    name: 'Obsidian Clipper Extended',
-    short_name: 'Clipper Extended',
+    name: 'Clipper Prep for Obsidian',
+    short_name: 'Clipper Prep',
     description:
-      'A Chromium extension scaffold for extending Obsidian web clipping workflows.',
+      'Prepare complex pages for cleaner Obsidian Web Clipper captures.',
     permissions: ['activeTab', 'storage'],
   },
 });

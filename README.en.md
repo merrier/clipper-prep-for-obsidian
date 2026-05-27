@@ -1,16 +1,16 @@
-[![Obsidian Clipper Extended](store-assets/promo-marquee-1400x560.png)](store-assets/promo-marquee-1400x560.png)
+[![Clipper Prep for Obsidian](store-assets/promo-marquee-1400x560.png)](store-assets/promo-marquee-1400x560.png)
 
-# Obsidian Clipper Extended
+# Clipper Prep for Obsidian
 
 [中文](README.md) · [English](README.en.md) · [日本語](README.ja.md)
 
-Obsidian Clipper Extended is a Chromium MV3 extension that prepares complex web pages before they are captured with the official [Obsidian Web Clipper](https://obsidian.md/clipper), helping the final Markdown in Obsidian become cleaner and more complete.
+Clipper Prep for Obsidian is a Chromium MV3 extension that prepares complex web pages before they are captured with the official [Obsidian Web Clipper](https://obsidian.md/clipper), helping the final Markdown in Obsidian become cleaner and more complete.
 
 This project is independent from the official Obsidian Web Clipper. It does not replace the official clipper; it improves the page DOM so the official clipper can read content that is easier to convert into Markdown.
 
 ## What It Is
 
-Many websites do not expose article content, images, and links as straightforward HTML. They may rely on lazy loading, virtual scrolling, shadow DOM, embedded frames, or custom rendered nodes. Obsidian Clipper Extended prepares those structures before clipping:
+Many websites do not expose article content, images, and links as straightforward HTML. They may rely on lazy loading, virtual scrolling, shadow DOM, embedded frames, or custom rendered nodes. Clipper Prep for Obsidian prepares those structures before clipping:
 
 - Normalizes article image URLs and attributes.
 - Mirrors rendered document blocks into semantic article HTML.
@@ -34,7 +34,7 @@ flowchart LR
   User["User"] --> OfficialClipper["Official Obsidian Web Clipper"]
   OfficialClipper --> PreparedDOM["Prepared page DOM"]
 
-  subgraph Extension["Obsidian Clipper Extended"]
+  subgraph Extension["Clipper Prep for Obsidian"]
     Popup["Popup UI<br/>React"] -->|"runtime:ping"| Background["Background<br/>MV3 service worker"]
     Popup -->|"tabs.sendMessage<br/>page:snapshot"| PageContent["Page content script<br/>isolated world, all frames"]
     Options["Options UI<br/>React"] -->|"runtime:ping"| Background

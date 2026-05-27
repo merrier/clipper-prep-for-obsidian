@@ -109,7 +109,7 @@ export function OptionsApp() {
     <main className="options-shell">
       <header className="options-header">
         <div>
-          <p className="eyebrow">Obsidian Clipper Extended</p>
+          <p className="eyebrow">Clipper Prep for Obsidian</p>
           <h1>Settings</h1>
         </div>
         <RuntimeStatus ready={runtimeReady} />

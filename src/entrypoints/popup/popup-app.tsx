@@ -86,7 +86,7 @@ export function PopupApp() {
       <header className="popup-header">
         <div>
           <p className="eyebrow">Obsidian</p>
-          <h1>Clipper Extended</h1>
+          <h1>Clipper Prep</h1>
         </div>
         <button
           className="icon-button"

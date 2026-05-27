@@ -7,7 +7,7 @@ export default defineBackground({
   type: 'module',
   main() {
     browser.runtime.onInstalled.addListener(({ reason }) => {
-      console.info('[Obsidian Clipper Extended] installed:', reason);
+      console.info('[Clipper Prep for Obsidian] installed:', reason);
     });
 
     browser.runtime.onMessage.addListener((message) => {
@@ -19,4 +19,3 @@ export default defineBackground({
     });
   },
 });
-

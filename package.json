@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "A Chromium MV3 extension scaffold for extending Obsidian web clipping workflows.",
+  "description": "Prepare complex pages for cleaner Obsidian Web Clipper captures.",
   "scripts": {
     "dev": "wxt -b chrome",
     "build": "wxt build -b chrome",

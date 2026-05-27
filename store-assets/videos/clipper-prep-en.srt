@@ -1,0 +1,35 @@
+1
+00:00:00,000 --> 00:00:05,924
+Meet Clipper Prep for Obsidian, a small helper that prepares complex pages before you clip.
+
+2
+00:00:05,924 --> 00:00:15,136
+Many pages are not plain HTML. They use lazy images, virtual documents, shadow DOM, and hidden data href links.
+
+3
+00:00:15,136 --> 00:00:21,300
+Clipper Prep normalizes images, mirrors documents, and keeps rendered links as real links.
+
+4
+00:00:21,300 --> 00:00:27,368
+It works with WeChat Official Accounts, ByteTech articles, and Feishu or Lark documents.
+
+5
+00:00:27,368 --> 00:00:33,388
+Rendered links can survive as Markdown links, so you spend less time fixing notes afterward.
+
+6
+00:00:33,388 --> 00:00:39,864
+Your workflow stays the same. Open the page, then use the official Obsidian Web Clipper.
+
+7
+00:00:39,864 --> 00:00:45,932
+To install it, search for Clipper Prep for Obsidian in the app store, then add it to your browser.
+
+8
+00:00:45,932 --> 00:00:51,856
+You can turn site enhancers and global Markdown link processing on or off from Options.
+
+9
+00:00:51,856 --> 00:00:57,420
+Less cleanup, cleaner Markdown. That is Clipper Prep for Obsidian.
