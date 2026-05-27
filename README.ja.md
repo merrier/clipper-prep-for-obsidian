@@ -2,7 +2,7 @@
 
 # Clipper Prep for Obsidian
 
-[中文](README.md) · [English](README.en.md) · [日本語](README.ja.md)
+[中文](README.zh-CN.md) · [English](README.md) · [日本語](README.ja.md)
 
 Clipper Prep for Obsidian は、公式 [Obsidian Web Clipper](https://obsidian.md/clipper) で保存する前に複雑な Web ページを整える Chromium MV3 拡張機能です。Obsidian に入る最終的な Markdown を、より完全で読みやすいものにします。
 

@@ -2,32 +2,32 @@
 
 # Clipper Prep for Obsidian
 
-[中文](README.md) · [English](README.en.md) · [日本語](README.ja.md)
+[中文](README.zh-CN.md) · [English](README.md) · [日本語](README.ja.md)
 
-Clipper Prep for Obsidian 是一个 Chromium MV3 浏览器插件，用于在官方 [Obsidian Web Clipper](https://obsidian.md/clipper) 剪藏前预处理复杂网页，让最终进入 Obsidian 的 Markdown 更完整、更干净。
+Clipper Prep for Obsidian is a Chromium MV3 extension that prepares complex web pages before they are captured with the official [Obsidian Web Clipper](https://obsidian.md/clipper), helping the final Markdown in Obsidian become cleaner and more complete.
 
-本项目独立于官方 Obsidian Web Clipper。它不替代官方剪藏器，而是改善页面 DOM，让官方剪藏器可以读取更适合转换为 Markdown 的内容。
+This project is independent from the official Obsidian Web Clipper. It does not replace the official clipper; it improves the page DOM so the official clipper can read content that is easier to convert into Markdown.
 
-## 这是什么
+## What It Is
 
-很多网页的正文、图片和链接并不是直接以普通 HTML 呈现，而是通过懒加载、虚拟滚动、shadow DOM、内嵌 frame 或自定义渲染节点生成。Clipper Prep for Obsidian 会在剪藏前处理这些页面结构：
+Many websites do not expose article content, images, and links as straightforward HTML. They may rely on lazy loading, virtual scrolling, shadow DOM, embedded frames, or custom rendered nodes. Clipper Prep for Obsidian prepares those structures before clipping:
 
-- 规范文章图片地址和属性。
-- 将渲染型文档块镜像为语义化文章 HTML。
-- 保留 Lark / Feishu 渲染链接，让它们能成为 `[text](url)`。
-- 在 Popup 中显示当前页面增强状态。
-- 在 Options 中开关站点增强和全局处理。
+- Normalizes article image URLs and attributes.
+- Mirrors rendered document blocks into semantic article HTML.
+- Preserves Lark / Feishu rendered links so they can become `[text](url)`.
+- Shows the current page enhancement status in the Popup.
+- Lets users toggle site enhancers and global processors from Options.
 
-## 支持能力
+## Supported Capabilities
 
-| 范围 | 处理内容 |
+| Scope | What it does |
 | --- | --- |
-| WeChat Official Accounts | 规范 `mp.weixin.qq.com/s...` 文章图片的 `src`、`data-src`、`loading`、`alt` 等属性。 |
-| ByteTech Articles | 读取 `bytetech.info/articles...` 中嵌入的 Lark 文档 frame，并在顶层页面镜像语义化文章。 |
-| Feishu / Lark Documents | 将 `feishu.cn/docx...`、`larkoffice.com/docx...`、`larksuite.com/docx...` 的渲染文档块转换为文章镜像。 |
-| Global Markdown Links | 默认开启，规范 Lark / Feishu 等页面里的 `data-href` 链接，让剪藏结果保留 `[text](url)`。 |
+| WeChat Official Accounts | Normalizes image `src`, `data-src`, `loading`, `alt`, and related attributes in `mp.weixin.qq.com/s...` articles. |
+| ByteTech Articles | Reads the embedded Lark document frame in `bytetech.info/articles...` and mirrors semantic article HTML into the top page. |
+| Feishu / Lark Documents | Converts rendered document blocks on `feishu.cn/docx...`, `larkoffice.com/docx...`, and `larksuite.com/docx...` into an article mirror. |
+| Global Markdown Links | Enabled by default; normalizes `data-href` links so clipped Markdown can keep `[text](url)`. |
 
-## 通信架构
+## Communication Architecture
 
 ```mermaid
 flowchart LR
@@ -58,37 +58,37 @@ flowchart LR
   PageContent -->|"snapshot + enhancement status"| Popup
 ```
 
-核心思路很简单：插件先准备当前页面 DOM，用户再像平时一样使用官方 Obsidian Web Clipper 读取这个准备好的页面。
+The main idea is simple: this extension prepares the live page DOM first, then users clip the prepared page with the official Obsidian Web Clipper as usual.
 
-## 使用方式
+## Usage
 
-1. 安装依赖：`npm install`
-2. 开发模式：`npm run dev`
-3. 生产构建：`npm run build`
-4. 在 Chromium / Chrome 中加载 `dist/chrome-mv3` 为未打包扩展。
-5. 打开 Options，启用需要的站点增强。
-6. 打开目标页面，确认 Popup 中增强状态为 active。
-7. 使用官方 Obsidian Web Clipper 正常剪藏。
+1. Install dependencies: `npm install`
+2. Start development mode: `npm run dev`
+3. Build for production: `npm run build`
+4. Load `dist/chrome-mv3` as an unpacked extension in Chromium / Chrome.
+5. Open Options and enable the site enhancers you need.
+6. Open the target page and confirm the Popup shows the enhancer as active.
+7. Clip with the official Obsidian Web Clipper.
 
-## 开发脚本
+## Scripts
 
-- `npm run dev`: 启动 WXT Chrome 开发模式。
-- `npm run build`: 构建 `dist/chrome-mv3`。
-- `npm run zip`: 打包 Chrome 扩展。
-- `npm run typecheck`: 运行 TypeScript 类型检查。
-- `npm run test`: 运行 Vitest。
-- `npm run lint`: 运行 ESLint。
+- `npm run dev`: Start WXT in Chrome development mode.
+- `npm run build`: Build `dist/chrome-mv3`.
+- `npm run zip`: Package the Chrome extension.
+- `npm run typecheck`: Run TypeScript checks.
+- `npm run test`: Run Vitest.
+- `npm run lint`: Run ESLint.
 
-## 内置 Codex Skill
+## Bundled Codex Skill
 
-仓库内包含一个用于生成插件商店物料的 Codex skill：[plugin-store-assets](skills/plugin-store-assets/SKILL.md)。
+This repository includes a Codex skill for generating extension store materials: [plugin-store-assets](skills/plugin-store-assets/SKILL.md).
 
-如果要安装到本机 Codex，可复制 `skills/plugin-store-assets` 到 `~/.codex/skills/plugin-store-assets`。
+To install it locally, copy `skills/plugin-store-assets` to `~/.codex/skills/plugin-store-assets`.
 
-## 商店物料
+## Store Assets
 
-- [摘要与说明](store-assets/summary-description.md)
-- [图标 128x128](store-assets/icon-128.png)
-- [屏幕截图 1280x800](store-assets/screenshot-1280x800.png)
-- [小型宣传图块 440x280](store-assets/promo-small-440x280.png)
-- [顶部宣传图块 1400x560](store-assets/promo-marquee-1400x560.png)
+- [Summary and description](store-assets/summary-description.md)
+- [Icon 128x128](store-assets/icon-128.png)
+- [Screenshot 1280x800](store-assets/screenshot-1280x800.png)
+- [Small promo tile 440x280](store-assets/promo-small-440x280.png)
+- [Marquee promo tile 1400x560](store-assets/promo-marquee-1400x560.png)
