@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plugin Store Assets"
+  short_description: "Generate extension store assets."
+  default_prompt: "Use $plugin-store-assets to generate browser extension store assets for this project."

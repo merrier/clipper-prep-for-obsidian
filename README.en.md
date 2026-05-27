@@ -79,6 +79,12 @@ The main idea is simple: this extension prepares the live page DOM first, then u
 - `npm run test`: Run Vitest.
 - `npm run lint`: Run ESLint.
 
+## Bundled Codex Skill
+
+This repository includes a Codex skill for generating extension store materials: [plugin-store-assets](skills/plugin-store-assets/SKILL.md).
+
+To install it locally, copy `skills/plugin-store-assets` to `~/.codex/skills/plugin-store-assets`.
+
 ## Store Assets
 
 - [Summary and description](store-assets/summary-description.md)

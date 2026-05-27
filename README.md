@@ -79,6 +79,12 @@ flowchart LR
 - `npm run test`: 运行 Vitest。
 - `npm run lint`: 运行 ESLint。
 
+## 内置 Codex Skill
+
+仓库内包含一个用于生成插件商店物料的 Codex skill：[plugin-store-assets](skills/plugin-store-assets/SKILL.md)。
+
+如果要安装到本机 Codex，可复制 `skills/plugin-store-assets` 到 `~/.codex/skills/plugin-store-assets`。
+
 ## 商店物料
 
 - [摘要与说明](store-assets/summary-description.md)

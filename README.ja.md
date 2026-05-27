@@ -79,6 +79,12 @@ flowchart LR
 - `npm run test`: Vitest を実行します。
 - `npm run lint`: ESLint を実行します。
 
+## 同梱 Codex Skill
+
+このリポジトリには、拡張機能ストア素材を生成するための Codex skill が含まれています: [plugin-store-assets](skills/plugin-store-assets/SKILL.md)。
+
+ローカルにインストールするには、`skills/plugin-store-assets` を `~/.codex/skills/plugin-store-assets` にコピーします。
+
 ## ストア用素材
 
 - [概要と説明](store-assets/summary-description.md)
